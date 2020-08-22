@@ -1,7 +1,10 @@
 package com.hackerrank.github.model;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+@Entity
 public class Actor {
-    private Long id;
+	private @Id @ GeneratedValue Long id;
     private String login;
     private String avatar;
 
