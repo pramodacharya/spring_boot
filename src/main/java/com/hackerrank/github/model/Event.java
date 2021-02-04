@@ -4,12 +4,24 @@ import java.sql.Timestamp;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
+@Table(name="EVENTS")
+@JsonIgnoreProperties("hibernateLazyInitializer")
 public class Event {
-	private @Id @ GeneratedValue Long id;
+	private @Id  Long id;
     private String type;
+    @ManyToOne( cascade = CascadeType.ALL)
+    @JoinColumn (name="EVENT_ID")
     private Actor actor;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name="EVENT_REPO_ID")
     private Repo repo;
+    @JsonProperty(value= "created_at")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp createdAt;
 
     public Event() {

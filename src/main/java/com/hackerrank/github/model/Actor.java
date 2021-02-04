@@ -1,13 +1,32 @@
 package com.hackerrank.github.model;
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-@Entity
-public class Actor {
-	private @Id @ GeneratedValue Long id;
-    private String login;
-    private String avatar;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+@Entity
+@Table(name="ACTORS")
+@JsonIgnoreProperties("hibernateLazyInitializer")
+public class Actor implements Serializable {
+
+    private static final long serialVersionUID = -1344497166638156145L;
+	private @Id Long id;
+    private String login;
+    @JsonProperty(value= "avatar_url")
+    private String avatar;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Event> eventActor;
+    
     public Actor() {
     }
 

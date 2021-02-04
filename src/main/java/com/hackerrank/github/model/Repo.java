@@ -1,12 +1,23 @@
 package com.hackerrank.github.model;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
-@Entity
-public class Repo {
-    private @Id @ GeneratedValue Long id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity(name="REPOS")
+@JsonIgnoreProperties("hibernateLazyInitializer")
+public class Repo  implements Serializable {
+
+    private static final long serialVersionUID = -1344497166638156145L;
+    private @Id Long id;
     private String name;
     private String url;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Event> eventRepo;
 
     public Repo() {
     }
